@@ -1,0 +1,60 @@
+
+
+Version:	3.50
+CmdLine:	C:\Mac\Home\Documents\Java\osintTool\osintTool\OsintTool.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	C:\Mac\Home\Documents\Java\osintTool\osintTool\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	
+Java max ver:	
+Substitute:	JAVA_HOME = 
+Substitute:	PATH = C:\Program Files\Eclipse Adoptium\jdk-17.0.15.6-hotspot\bin;C:\Program Files\Parallels\Parallels Tools\Applications;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Git\cmd;C:\Mac\Home\Downloads\curl-8.11.1_3-win64-mingw\curl-8.11.1_3-win64-mingw;C:\Users\apple\AppData\Local\Microsoft\WindowsApps;C:\Users\apple\.dotnet\tools;C:\Program Files (x86)\Jar2Exe Wizard\;C:\Program Files\Eclipse Adoptium\jdk-17.0.15.6-hotspot\bin
+JRE paths:	;C:\Program Files\Eclipse Adoptium\jdk-17.0.15.6-hotspot\bin;C:\Program Files\Parallels\Parallels Tools\Applications;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Git\cmd;C:\Mac\Home\Downloads\curl-8.11.1_3-win64-mingw\curl-8.11.1_3-win64-mingw;C:\Users\apple\AppData\Local\Microsoft\WindowsApps;C:\Users\apple\.dotnet\tools;C:\Program Files (x86)\Jar2Exe Wizard\;C:\Program Files\Eclipse Adoptium\jdk-17.0.15.6-hotspot\bin
+Check launcher:	C:\Program Files\Eclipse Adoptium\jdk-17.0.15.6-hotspot\bin\javaw.exe (OK)
+Version string: 1.017.000_015 / 64-Bit (OK)
+Launcher:	C:\Program Files\Eclipse Adoptium\jdk-17.0.15.6-hotspot\bin\javaw.exe
+Launcher args:	-jar "C:\Mac\Home\Documents\Java\osintTool\osintTool\OsintTool.exe"
+Args length:	67/32768 chars
+Exit code:	0
+
+
+Version:	3.50
+CmdLine:	C:\Mac\Home\Documents\Java\osintTool\osintTool\OsintTool.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	C:\Mac\Home\Documents\Java\osintTool\osintTool\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	
+Java max ver:	
+Substitute:	JAVA_HOME = 
+Substitute:	PATH = C:\Program Files\Eclipse Adoptium\jdk-17.0.15.6-hotspot\bin;C:\Program Files\Parallels\Parallels Tools\Applications;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Git\cmd;C:\Mac\Home\Downloads\curl-8.11.1_3-win64-mingw\curl-8.11.1_3-win64-mingw;C:\Users\apple\AppData\Local\Microsoft\WindowsApps;C:\Users\apple\.dotnet\tools;C:\Program Files (x86)\Jar2Exe Wizard\;C:\Program Files\Eclipse Adoptium\jdk-17.0.15.6-hotspot\bin
+JRE paths:	;C:\Program Files\Eclipse Adoptium\jdk-17.0.15.6-hotspot\bin;C:\Program Files\Parallels\Parallels Tools\Applications;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Git\cmd;C:\Mac\Home\Downloads\curl-8.11.1_3-win64-mingw\curl-8.11.1_3-win64-mingw;C:\Users\apple\AppData\Local\Microsoft\WindowsApps;C:\Users\apple\.dotnet\tools;C:\Program Files (x86)\Jar2Exe Wizard\;C:\Program Files\Eclipse Adoptium\jdk-17.0.15.6-hotspot\bin
+Check launcher:	C:\Program Files\Eclipse Adoptium\jdk-17.0.15.6-hotspot\bin\javaw.exe (OK)
+Version string: 1.017.000_015 / 64-Bit (OK)
+Launcher:	C:\Program Files\Eclipse Adoptium\jdk-17.0.15.6-hotspot\bin\javaw.exe
+Launcher args:	-jar "C:\Mac\Home\Documents\Java\osintTool\osintTool\OsintTool.exe"
+Args length:	67/32768 chars
+Exit code:	0
+
+
+Version:	3.50
+CmdLine:	C:\Mac\Home\Documents\Java\osintTool\osintTool\OsintTool.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	C:\Mac\Home\Documents\Java\osintTool\osintTool\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	
+Java max ver:	
+Substitute:	JAVA_HOME = 
+Substitute:	PATH = C:\Program Files\Eclipse Adoptium\jdk-17.0.15.6-hotspot\bin;C:\Program Files\Parallels\Parallels Tools\Applications;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Git\cmd;C:\Mac\Home\Downloads\curl-8.11.1_3-win64-mingw\curl-8.11.1_3-win64-mingw;C:\Users\apple\AppData\Local\Microsoft\WindowsApps;C:\Users\apple\.dotnet\tools;C:\Program Files (x86)\Jar2Exe Wizard\;C:\Program Files\Eclipse Adoptium\jdk-17.0.15.6-hotspot\bin
+JRE paths:	;C:\Program Files\Eclipse Adoptium\jdk-17.0.15.6-hotspot\bin;C:\Program Files\Parallels\Parallels Tools\Applications;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Git\cmd;C:\Mac\Home\Downloads\curl-8.11.1_3-win64-mingw\curl-8.11.1_3-win64-mingw;C:\Users\apple\AppData\Local\Microsoft\WindowsApps;C:\Users\apple\.dotnet\tools;C:\Program Files (x86)\Jar2Exe Wizard\;C:\Program Files\Eclipse Adoptium\jdk-17.0.15.6-hotspot\bin
+Check launcher:	C:\Program Files\Eclipse Adoptium\jdk-17.0.15.6-hotspot\bin\javaw.exe (OK)
+Version string: 1.017.000_015 / 64-Bit (OK)
+Launcher:	C:\Program Files\Eclipse Adoptium\jdk-17.0.15.6-hotspot\bin\javaw.exe
+Launcher args:	-jar "C:\Mac\Home\Documents\Java\osintTool\osintTool\OsintTool.exe"
+Args length:	67/32768 chars
+Exit code:	0
