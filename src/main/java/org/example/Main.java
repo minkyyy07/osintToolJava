@@ -122,48 +122,121 @@ public class Main implements Callable<Integer> {
         if (phone != null) {
             printSection("ПОИСК ПО НОМЕРУ ТЕЛЕФОНА: " + phone);
 
-            // Получаем учетные данные из переменных окружения или используем значения по умолчанию
-            String userId = System.getenv("NEUTRINO_USER_ID");
-            String apiKey = System.getenv("NEUTRINO_API_KEY");
+            // Демо-режим вместо реального API для тестирования
+            boolean useDemo = true; // установите в false, когда у вас будут рабочие API-ключи
 
-            // Если переменные окружения не установлены, используем значения по умолчанию
-            if (userId == null || userId.isEmpty()) userId = "ВАШ_USER_ID";
-            if (apiKey == null || apiKey.isEmpty()) apiKey = "ВАШ_API_KEY";
+            if (!useDemo) {
+                try {
+                    // Для использования реального API раскомментируйте этот блок и укажите ваши ключи
+                    String url = "http://apilayer.net/api/validate";
 
-            // Используем бесплатное API numverify.com для демонстрации
-            String url = "http://apilayer.net/api/validate";
+                    // Создаем URL с параметрами запроса - замените YOUR_REAL_API_KEY на ваш настоящий ключ
+                    url += "?access_key=YOUR_REAL_API_KEY";
+                    url += "&number=" + java.net.URLEncoder.encode(phone, java.nio.charset.StandardCharsets.UTF_8);
+                    url += "&country_code=&format=1";
 
-            // Создаем URL с параметрами запроса
-            url += "?access_key=YOUR_API_KEY"; // Замените на ваш ключ API
-            url += "&number=" + java.net.URLEncoder.encode(phone, java.nio.charset.StandardCharsets.UTF_8);
-            url += "&country_code=&format=1";
+                    Request request = new Request.Builder()
+                            .url(url)
+                            .get()
+                            .header("User-Agent", "osintTool/1.0")
+                            .build();
 
-            Request request = new Request.Builder()
-                    .url(url)
-                    .get() // Используем GET запрос вместо POST
-                    .header("User-Agent", "osintTool/1.0")
-                    .build();
+                    try (Response response = client.newCall(request).execute()) {
+                        if (response.isSuccessful()) {
+                            String body = response.body() != null ? response.body().string() : "";
+                            ObjectMapper mapper = new ObjectMapper();
+                            JsonNode jsonNode = mapper.readTree(body);
 
-            try (Response response = client.newCall(request).execute()) {
-                if (response.isSuccessful()) {
-                    // ...existing code...
-                } else {
-                    printError("Ошибка запроса: " + response.code() + " - " + response.message());
-                    System.out.println(ConsoleColors.YELLOW + "Для использования этой функции необходим действующий API-ключ." + ConsoleColors.RESET);
-                    System.out.println(ConsoleColors.YELLOW + "Вы можете получить бесплатный ключ на https://numverify.com" + ConsoleColors.RESET);
+                            if (jsonNode.has("success") && jsonNode.path("success").asBoolean()) {
+                                printSuccess("Информация о номере получена");
+
+                                if (jsonNode.has("valid")) {
+                                    printResult("Валидный номер", jsonNode.path("valid").asBoolean() ? "Да" : "Нет");
+                                }
+
+                                if (jsonNode.has("country_name")) {
+                                    printResult("Страна", jsonNode.path("country_name").asText());
+                                }
+
+                                if (jsonNode.has("location")) {
+                                    printResult("Местоположение", jsonNode.path("location").asText());
+                                }
+
+                                if (jsonNode.has("carrier")) {
+                                    printResult("Оператор", jsonNode.path("carrier").asText());
+                                }
+
+                                if (jsonNode.has("line_type")) {
+                                    printResult("Тип", jsonNode.path("line_type").asText());
+                                }
+
+                                hasResults = true;
+                            } else {
+                                printError("API вернул ошибку: " + jsonNode.path("error").path("info").asText());
+                            }
+                        } else {
+                            printError("Ошибка запроса: " + response.code() + " - " + response.message());
+                        }
+                    }
+                } catch (Exception e) {
+                    printError("Ошибка при выполнении запроса: " + e.getMessage());
                 }
-            } catch (Exception e) {
-                printError("Ошибка при выполнении запроса: " + e.getMessage());
             }
 
-            // Альтернативный вариант: Используем демо-данные, когда API недоступен
+            // Если API недоступен или включен демо-режим, показываем демо-данные
             if (!hasResults) {
-                printSuccess("Демонстрационные данные (API недоступен)");
+                printSuccess("Демонстрационные данные для номера " + phone);
+
+                // Определяем предполагаемого оператора по первым цифрам (для демонстрации)
+                String operator = "Неизвестный оператор";
+                String region = "Неизвестный регион";
+                String type = "Мобильный";
+
+                // Простая демо-логика определения операторов по префиксам (только для демонстрации)
+                if (phone.startsWith("+7") || phone.startsWith("8")) {
+                    String code = phone.startsWith("+7") ? phone.substring(2, 5) : phone.substring(1, 4);
+
+                    if (code.equals("900") || code.equals("901") || code.equals("902") || code.equals("904")) {
+                        operator = "МТС";
+                        region = "Россия";
+                    } else if (code.equals("910") || code.equals("911") || code.equals("915")) {
+                        operator = "Билайн";
+                        region = "Россия";
+                    } else if (code.equals("920") || code.equals("921") || code.equals("922")) {
+                        operator = "Мегафон";
+                        region = "Россия";
+                    } else if (code.equals("950") || code.equals("951") || code.equals("952")) {
+                        operator = "Tele2";
+                        region = "Россия";
+                    } else {
+                        // Коды регионов (очень упрощенно для демо)
+                        if (code.equals("495") || code.equals("499")) {
+                            operator = "Городская телефонная сеть";
+                            region = "Москва";
+                            type = "Стационарный";
+                        } else if (code.equals("812")) {
+                            operator = "Городская телефонная сеть";
+                            region = "Санкт-Петербург";
+                            type = "Стационарный";
+                        }
+                    }
+                } else if (phone.startsWith("+380")) {
+                    operator = "Украинский оператор";
+                    region = "Украина";
+                } else if (phone.startsWith("+375")) {
+                    operator = "Белорусский оператор";
+                    region = "Беларусь";
+                } else if (phone.startsWith("+1")) {
+                    operator = "Американский/Канадский оператор";
+                    region = "США/Канада";
+                }
+
                 printResult("Номер телефона", phone);
-                printResult("Страна", "Россия");
-                printResult("Оператор", "Демо-оператор");
-                printResult("Тип номера", "Мобильный");
+                printResult("Страна/Регион", region);
+                printResult("Оператор", operator);
+                printResult("Тип номера", type);
                 printResult("Валидный номер", "Да");
+
                 hasResults = true;
             }
         }
