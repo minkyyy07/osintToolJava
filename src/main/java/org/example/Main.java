@@ -47,6 +47,16 @@ public class Main implements Callable<Integer> {
         System.out.println(ConsoleColors.CYAN + border + ConsoleColors.RESET);
     }
 
+    private static void printMenu() {
+        System.out.println(ConsoleColors.YELLOW_BOLD + "\nДоступные функции:" + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.CYAN_BOLD + "  1. Поиск по номеру телефона" + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.GREEN_BOLD + "  2. Поиск по адресу" + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.PURPLE_BOLD + "  3. Поиск по email" + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.BLUE_BOLD + "  4. Поиск по IP-адресу" + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.RED_BOLD + "  5. DDoS (тестовая функция)" + ConsoleColors.RESET);
+        System.out.println();
+    }
+
     private static void printSection(String title) {
         System.out.println();
         System.out.println(ConsoleColors.YELLOW_BOLD + "► " + title + ConsoleColors.RESET);
@@ -82,20 +92,45 @@ public class Main implements Callable<Integer> {
         System.out.flush();
 
         printHeader("OSINT TOOL v1.1");
+        printMenu();
 
         java.util.Scanner scanner = new java.util.Scanner(System.in);
 
-        System.out.print(ConsoleColors.BLUE + "☎ Введите номер телефона (или оставьте пустым): " + ConsoleColors.WHITE);
-        String phoneInput = scanner.nextLine().trim();
+        System.out.print(ConsoleColors.PURPLE + "Выберите функции (1-5, через запятую или пробел): " + ConsoleColors.WHITE);
+        String selectionInput = scanner.nextLine().trim();
+        String[] selections = selectionInput.split("[ ,]+");
+        boolean[] selected = new boolean[5];
+        for (String sel : selections) {
+            try {
+                int idx = Integer.parseInt(sel);
+                if (idx >= 1 && idx <= 5) selected[idx - 1] = true;
+            } catch (NumberFormatException ignored) {}
+        }
 
-        System.out.print(ConsoleColors.BLUE + "🏠 Введите адрес (или оставьте пустым): " + ConsoleColors.WHITE);
-        String addressInput = scanner.nextLine().trim();
-
-        System.out.print(ConsoleColors.BLUE + "✉ Введите email (или оставьте пустым): " + ConsoleColors.WHITE);
-        String emailInput = scanner.nextLine().trim();
-
-        System.out.print(ConsoleColors.BLUE + "🌐 Введите IP-адрес (или оставьте пустым): " + ConsoleColors.WHITE);
-        String ipInput = scanner.nextLine().trim();
+        String phoneInput = "", addressInput = "", emailInput = "", ipInput = "";
+        if (selected[0]) {
+            System.out.print(ConsoleColors.BLUE + "☎ Введите номер телефона (или оставьте пустым): " + ConsoleColors.WHITE);
+            phoneInput = scanner.nextLine().trim();
+        }
+        if (selected[1]) {
+            System.out.print(ConsoleColors.BLUE + "🏠 Введите адрес (или оставьте пустым): " + ConsoleColors.WHITE);
+            addressInput = scanner.nextLine().trim();
+        }
+        if (selected[2]) {
+            System.out.print(ConsoleColors.BLUE + "✉ Введите email (или оставьте пустым): " + ConsoleColors.WHITE);
+            emailInput = scanner.nextLine().trim();
+        }
+        if (selected[3]) {
+            System.out.print(ConsoleColors.BLUE + "🌐 Введите IP-адрес (или оставьте пустым): " + ConsoleColors.WHITE);
+            ipInput = scanner.nextLine().trim();
+        }
+        if (selected[4]) {
+            System.out.print(ConsoleColors.RED + "\uD83D\uDCA5 Введите URL для DDoS (тест): " + ConsoleColors.WHITE);
+            String ddosUrl = scanner.nextLine().trim();
+            if (!ddosUrl.isEmpty()) {
+                performDdosTest(ddosUrl);
+            }
+        }
 
         scanner.close();
 
@@ -114,6 +149,16 @@ public class Main implements Callable<Integer> {
         System.exit(exitCode);
     }
 
+    private static void performDdosTest(String url) {
+        printSection(ConsoleColors.RED_BOLD + "ТЕСТОВЫЙ DDoS: " + ConsoleColors.WHITE + url);
+        System.out.println(ConsoleColors.RED + "Внимание! Это только демонстрация. Реальных запросов не отправляется." + ConsoleColors.RESET);
+        for (int i = 1; i <= 5; i++) {
+            System.out.println(ConsoleColors.RED + "[DDoS] Пакет #" + i + " отправлен на " + url + ConsoleColors.RESET);
+            try { Thread.sleep(300); } catch (InterruptedException ignored) {}
+        }
+        printSuccess("Тестовая DDoS-атака завершена.");
+    }
+
     @Override
     public Integer call() throws Exception {
         OkHttpClient client = new OkHttpClient();
@@ -125,10 +170,9 @@ public class Main implements Callable<Integer> {
 
         boolean hasResults = false;
 
+        // Улучшенный вывод рамки для каждого поиска
         if (phone != null) {
-            printSection("ПОИСК ПО НОМЕРУ ТЕЛЕФОНА: " + phone);
-
-            // Демо-режим
+            printSection(ConsoleColors.CYAN_BOLD + "ПОИСК ПО НОМЕРУ ТЕЛЕФОНА: " + ConsoleColors.WHITE + phone);
             printSuccess("Демонстрационные данные для номера " + phone);
 
             String operator = "Неизвестный оператор";
@@ -137,33 +181,33 @@ public class Main implements Callable<Integer> {
 
             if (phone.startsWith("+7") || phone.startsWith("8")) {
                 String code = phone.startsWith("+7") ? phone.substring(2, 5) : phone.substring(1, 4);
-
-                if (code.equals("900") || code.equals("901") || code.equals("902") || code.equals("904")) {
-                    operator = "МТС";
-                    region = "Россия";
-                } else if (code.equals("910") || code.equals("911") || code.equals("915")) {
-                    operator = "Билайн";
-                    region = "Россия";
-                } else if (code.equals("920") || code.equals("921") || code.equals("922")) {
-                    operator = "Мегафон";
-                    region = "Россия";
-                } else if (code.equals("950") || code.equals("951") || code.equals("952")) {
-                    operator = "Tele2";
-                    region = "Россия";
-                } else {
-                    if (code.equals("495") || code.equals("499")) {
-                        operator = "Городская телефонная сеть";
-                        region = "Москва";
-                        type = "Стационарный";
-                    } else if (code.equals("812")) {
-                        operator = "Городская телефонная сеть";
-                        region = "Санкт-Петербург";
-                        type = "Стационарный";
-                    }
+                switch (code) {
+                    case "900": case "901": case "902": case "904":
+                        operator = "МТС"; region = "Россия"; break;
+                    case "910": case "911": case "915":
+                        operator = "Билайн"; region = "Россия"; break;
+                    case "920": case "921": case "922":
+                        operator = "Мегафон"; region = "Россия"; break;
+                    case "950": case "951": case "952":
+                        operator = "Tele2"; region = "Россия"; break;
+                    case "495": case "499":
+                        operator = "Городская телефонная сеть"; region = "Москва"; type = "Стационарный"; break;
+                    case "812":
+                        operator = "Городская телефонная сеть"; region = "Санкт-Петербург"; type = "Стационарный"; break;
                 }
             } else if (phone.startsWith("+380")) {
-                operator = "Украинский оператор";
-                region = "Украина";
+                String codeUa = phone.substring(4, 6);
+                switch (codeUa) {
+                    case "50": operator = "Vodafone Украина"; region = "Украина"; break;
+                    case "66": case "95": case "99": operator = "Vodafone Украина"; region = "Украина"; break;
+                    case "63": case "73": case "93": operator = "lifecell"; region = "Украина"; break;
+                    case "67": case "68": case "96": case "97": case "98": operator = "Киевстар"; region = "Украина"; break;
+                    case "39": operator = "Golden Telecom"; region = "Украина"; break;
+                    case "91": operator = "3Mob (Укртелеком)"; region = "Украина"; break;
+                    case "92": operator = "PEOPLEnet"; region = "Украина"; break;
+                    case "94": operator = "Интертелеком"; region = "Украина"; break;
+                    default: operator = "Украинский оператор"; region = "Украина"; break;
+                }
             } else if (phone.startsWith("+375")) {
                 operator = "Белорусский оператор";
                 region = "Беларусь";
@@ -274,3 +318,4 @@ public class Main implements Callable<Integer> {
         return 0;
     }
 }
+
